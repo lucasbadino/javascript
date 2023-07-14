@@ -167,7 +167,7 @@ function add_cust(name, last_name, dni, is_client) {
     alert(`Felicitaciones a agregado a: \n ${new_cust.get_info()}`)
 }
 function saled_done(new_sale) {
-    alert(`Operacion comfirmadad bajo el comprobante ${array_sales.length + 2} \n ${car_selected.get_info()}
+    alert(`Operacion comfirmadad bajo el comprobante ${new_sale.id} \n ${car_selected.get_info()}
     Vendido \n Comprado por ${cust_selected.get_info()} 
     \n El Dia ${new_sale.date} a las ${new_sale.time}`)
 }
@@ -211,7 +211,7 @@ function order_items(e) {
             }
             return 0
         })
-        men_cars = ""
+        men_cars = "Los Vehiculos en stock son: "
         array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
     }
     if (e == 2) {
@@ -224,7 +224,7 @@ function order_items(e) {
             }
             return 0
         })
-        men_cars = ""
+        men_cars = "Los Vehiculos en stock son: "
         array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
 
     }
@@ -238,7 +238,7 @@ function order_items(e) {
             }
             return 0
         })
-        men_cars = ""
+        men_cars = "Los Vehiculos en stock son: "
         array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
     }
 
