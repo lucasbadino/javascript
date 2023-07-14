@@ -2,7 +2,7 @@ alert("Bienvenido al sistema de gestion \n de stock y ventas")
 
 let con = true;
 const array_sales = new Array()
-const array_cars = new Array()
+let array_cars = new Array()
 array_cars.push(new Car((array_cars.length + 1), "Chevrolet", "Cruze 1.4T Ltz AT 4P", 2020, 158000))
 array_cars.push(new Car((array_cars.length + 1), "Peugeot", "207 1.4T HDI Allure 5P", 2016, 256000))
 array_cars.push(new Car((array_cars.length + 1), "Toyota", "Corolla SEG 1.8 CVT", 2018, 5690333))
@@ -17,7 +17,8 @@ mensaje += "\n 2- Agregar Vehiculo"
 mensaje += "\n 3- Consultar Cliente"
 mensaje += "\n 4- Agregar Clientes"
 mensaje += "\n 5- Realizar una venta"
-mensaje += ""
+mensaje += "\n 6- Ventas realizadas"
+mensaje += "\n 7- Eliminar auto"
 let men_cars = "Estos son los vehiculos en stock"
 let men_cust = "Clientes: "
 array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
@@ -61,27 +62,22 @@ if (con) {
                 break;
             }
             case 5: {
-                let car_to_sell = parseInt(prompt(`Ingrese el vehiculo a vender:\n${men_cars}`))
-                while (isNaN(car_to_sell) || car_to_sell <= 0 || car_to_sell >= array_cars.length + 1 ) {
-                    car_to_sell = parseInt(prompt(`Error, dato incorrecto. \nIngrese el vehiculo a vender:\n${men_cars}`))
-                }
-                let cus_to_buy = parseInt(prompt(`Ingrese el cliente comprador:\n${men_cust}`))
-                while (isNaN(cus_to_buy) || cus_to_buy <= 0 || cus_to_buy >= array_custumers.length + 1 ) {
-                    cus_to_buy = parseInt(prompt(`Error, dato incorrecto. \nIngrese el cliente comprador:\n${men_cust}`))
-                }
-                car_selected = array_cars.filter((e) => e.id == car_to_sell)
-                cust_selected = array_custumers.filter((e) => e.id == cus_to_buy)
-                check = confirm(`${cust_selected[0].get_info()} va a comprar el vehiculo\n ${car_selected[0].get_info()} \n Desea Continuar?`)
-                if(confirm){
-                    new_sale = new Sales(cust_selected,car_selected) 
-                    array_sales.push(new_sale)  
-                    saled_done(new_sale)                
-                }else{
-                    alert("Venta Cancelada!!!")
-                }
-
+                sell()
                 break;
 
+            }
+            case 6: {
+                array_sales.forEach(e => document.write(e.get_info()));
+                flag2 = false
+
+
+                break;
+            }
+            case 7: {
+                opcion = parseInt(prompt("ingresa un valor a eliminar"))
+                delete_car(opcion)
+                show_stock()
+                break;
             }
             default: {
                 flag2 = false
@@ -139,17 +135,37 @@ function add_cust(name, last_name, dni, is_client) {
     men_cust += ` \n ${new_cust.get_info()}`
     alert(`Felicitaciones a agregado a: \n ${new_cust.get_info()}`)
 }
-function saled_done(new_sale){
-    alert(`Operacion comfirmadad bajo el comprobante ${array_sales.length + 2} \n ${car_selected[0].get_info()}
-    Vendido \n Comprado por ${cust_selected[0].get_info()} 
+function saled_done(new_sale) {
+    alert(`Operacion comfirmadad bajo el comprobante ${array_sales.length + 2} \n ${car_selected.get_info()}
+    Vendido \n Comprado por ${cust_selected.get_info()} 
     \n El Dia ${new_sale.date} a las ${new_sale.time}`)
 }
+function sell() {
+    let car_to_sell = parseInt(prompt(`Ingrese el vehiculo a vender:\n${men_cars}`))
+    while (isNaN(car_to_sell) || car_to_sell <= 0 || car_to_sell >= array_cars.length + 1) {
+        car_to_sell = parseInt(prompt(`Error, dato incorrecto. \nIngrese el vehiculo a vender:\n${men_cars}`))
+    }
+    let cus_to_buy = parseInt(prompt(`Ingrese el cliente comprador:\n${men_cust}`))
+    while (isNaN(cus_to_buy) || cus_to_buy <= 0 || cus_to_buy >= array_custumers.length + 1) {
+        cus_to_buy = parseInt(prompt(`Error, dato incorrecto. \nIngrese el cliente comprador:\n${men_cust}`))
+    }
+    car_selected = array_cars.find((e) => e.id == car_to_sell)
+    cust_selected = array_custumers.find((e) => e.id == cus_to_buy)
+    check = confirm(`${cust_selected.get_info()} va a comprar el vehiculo\n ${car_selected.get_info()} \n Desea Continuar?`)
+    if (check) {
+        delete_car(car_to_sell)
+        new_sale = new Sales(cust_selected, car_selected)
+        array_sales.push(new_sale)
+        saled_done(new_sale)
+    } else {
+        alert("Venta Cancelada!!!")
+    }
+}
 
-// class Customer{
-//     constructor(id, name, last_name, dni, is_client){
-//         this.id = id;
-//         this.name = name;
-//         this.last_name = last_name;
-//         this.dni = dni;
-//         this.is_client = is_client;
-//     }
+function delete_car(opcion) {
+    
+    array_cars = array_cars.filter(e => e.id != opcion)
+    men_cars = "Estos son los vehiculos en stock: "
+    array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
+
+}
