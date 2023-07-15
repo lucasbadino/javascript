@@ -8,8 +8,9 @@ class Sales{
     }
 
     get_info(){
-        return `<br>Operacion bajo en comprobante n°: ${this.id}<br> Fecha operacion ${this.date} <br> Hora operacion ${this.time} <br> Comprador: ${this.customer.get_info()} <br> Vehiculo vendido: ${this.car.get_info()} <br> <br>`
+        return `<br>Operacion bajo en comprobante n°: ${this.id}<br> Fecha operacion ${this.date} <br> Hora operacion ${this.time} <br> Comprador: ${this.customer.get_info_voucher()} <br> Vehiculo vendido: ${this.car.get_info_voucher()} <br> <br>`
     }
+    
 }
 
 class Cars_saled{
@@ -19,6 +20,6 @@ class Cars_saled{
     }
 
     get_info(){
-        return `${this.id} - ${this.car.brand}- ${this.car.model} año :${this.car.year}`
+        return `<br> Venta Nº:${this.id} - ${this.car.brand} - ${this.car.model} año :${this.car.year} <br>`
     }
 }

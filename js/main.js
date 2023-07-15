@@ -79,14 +79,9 @@ if (con) {
             }
             // agregar cliente
             case 4: {
-                flag = true
-                while (flag) {
-                    flag = confirm("Desea agregar otro cliente? ")
-                    if (flag) {
-                        request_data_customer()
-                        add_cust(name, last_name, dni, false)
-                    }
-                }
+                request_data_customer()
+                add_cust(name, last_name, dni, false)
+
                 show_cust()
                 break;
             }
@@ -100,18 +95,15 @@ if (con) {
             case 6: {
                 if (array_sales.length > 0) {
                     array_sales.forEach(e => document.write(e.get_info()));
+                    flag2 = true
                 } else {
-                    alert("no hubo ventas")
+                    alert("No hay ventas registradas")
                 }
-
-                flag2 = true
-
-
                 break;
             }
             // eliminar un vehiculo de stock
             case 7: {
-                opcion = parseInt(prompt("ingresa un valor a eliminar"))
+                opcion = parseInt(prompt("ingresa un valor a eliminar \n " + men_cars))
                 delete_car(opcion)
                 show_stock()
                 break;
@@ -125,15 +117,16 @@ if (con) {
                     men_car_saled = ""
                     array_cars_saled.forEach((e) => men_car_saled += e.get_info())
                     document.write(men_car_saled)
+                    flag2 = true
                 } else {
-
+                    alert("No hay ventas registradas")
                 }
 
                 break;
             }
             // salir del programa
             case 9: {
-                flag2 = confirm("Realmente Quiere Salir?")
+                flag2 = confirm("Desea Salir?")
                 break;
             }
             default: {

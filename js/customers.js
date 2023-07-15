@@ -9,6 +9,9 @@ class Customer{
 
 
     get_info(){
-        return `${this.id}El Sr/ra :${this.last_name.toUpperCase()} - ${this.name.toUpperCase()}` 
+        return `Nº Cliente: ${this.id} -Pertenece a: ${this.last_name.toUpperCase()} - ${this.name.toUpperCase()}` 
+    }
+    get_info_voucher(){
+        return `${this.last_name.toUpperCase()} ${this.name.toUpperCase()} - Cliente Nº: ${this.id}` 
     }
 }
