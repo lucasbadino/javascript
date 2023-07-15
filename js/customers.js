@@ -4,7 +4,6 @@ class Customer{
         this.name = name;
         this.last_name = last_name;
         this.dni = dni;
-        this.is_client = is_client;
     }
 
 

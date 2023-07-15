@@ -5,7 +5,6 @@ let array_cars_saled = new Array()
 let array_cars = new Array()
 let array_custumers = new Array()
 let array_users = new Array()
-let array_user_on_active = new Array()
 
 array_cars.push(new Car((array_cars.length + 1), "Chevrolet", "Cruze 1.4T Ltz AT 4P", 2020, 158000))
 array_cars.push(new Car((array_cars.length + 1), "Toyota", "Hilux 4x2 SRV Manual", 2012, 8900000))
@@ -143,7 +142,7 @@ if (val_user) {
                 array_sales.forEach(e => {
                     array_cars_saled.push(new Cars_saled(array_cars_saled.length + 1, e.car))
                 })
-                if (array_cars_saled.length != 0) {
+                if (array_cars_saled.length > 0) {
                     men_car_saled = ""
                     array_cars_saled.forEach((e) => men_car_saled += e.get_info())
                     document.write(men_car_saled)
@@ -160,7 +159,6 @@ if (val_user) {
                 break;
             }
             default: {
-                alert("valor ingresado no valido!")
                 flag2 = confirm("Quiere Salir del sistema?")
                 break;
 
@@ -212,8 +210,8 @@ function request_data_customer() {
         dni = parseInt(prompt("Ingrese el numero de dni: "))
     }
 }
-function add_cust(name, last_name, dni, is_client) {
-    new_cust = new Customer((array_custumers.length + 1), name, last_name, dni, is_client)
+function add_cust(name, last_name, dni) {
+    new_cust = new Customer((array_custumers.length + 1), name, last_name, dni)
     array_custumers.push(new_cust)
     men_cust += ` \n ${new_cust.get_info()}`
     alert(`Felicitaciones a agregado a: \n ${new_cust.get_info()}`)
