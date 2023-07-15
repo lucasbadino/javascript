@@ -1,15 +1,11 @@
-alert("Bienvenido al sistema de gestion \n de stock y ventas")
-
-// variable con para comfirmar ingreso al sistema
-
-let con = true;
-
 //arreglos simuladores de base de datos y pusheos de info
 
 let array_sales = new Array()
 let array_cars_saled = new Array()
 let array_cars = new Array()
 let array_custumers = new Array()
+let array_users = new Array()
+let array_user_on_active = new Array()
 
 array_cars.push(new Car((array_cars.length + 1), "Chevrolet", "Cruze 1.4T Ltz AT 4P", 2020, 158000))
 array_cars.push(new Car((array_cars.length + 1), "Toyota", "Hilux 4x2 SRV Manual", 2012, 8900000))
@@ -25,6 +21,14 @@ array_custumers.push(new Customer((array_custumers.length + 1), "Jose", "Almada"
 array_custumers.push(new Customer((array_custumers.length + 1), "Agustin", "Martinez", 21563002, false))
 array_custumers.push(new Customer((array_custumers.length + 1), "Lorenzo", "Peralta", 10933000, true))
 array_custumers.push(new Customer((array_custumers.length + 1), "Santiago", "Baigorria", 17734808, true))
+
+// usuarios disponibles para ingresar al sistema
+
+array_users.push(new User((array_users.length + 1), "lucas", "lucas123"))
+array_users.push(new User((array_users.length + 1), "juan", "juan123"))
+array_users.push(new User((array_users.length + 1), "marcos", "marcos123"))
+array_users.push(new User((array_users.length + 1), "pablo", "pablo123"))
+
 
 //mensaje de selector de operacion
 let mensaje = "Ingrese opcion a realizar:"
@@ -48,8 +52,28 @@ let men_cust = "Clientes: "
 array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
 array_custumers.forEach(e => men_cust += `\n ${e.get_info()}`)
 
+//comienso de ejecucion del sistema 
 
-if (con) {
+alert("Bienvenido al sistema de gestion \n de stock y ventas")
+let usuario = prompt("ingresa tu usuario")
+let contraseña = prompt("ingresa tu contraseña")
+let val_user = val_user_pass(usuario, contraseña)
+let counter = 1
+while (!val_user) {
+    if (counter < 3) {
+        counter++
+        alert("Usuario o contraseña incorrecta")
+        usuario = prompt("ingresa tu usuario")
+        contraseña = prompt("ingresa tu contraseña")
+        val_user = val_user_pass(usuario, contraseña)
+    }else{
+        alert("Usuario Bloqueado")
+        break;
+    }
+    
+}
+
+if (val_user) {
     flag2 = false
     do {
         option = parseInt(prompt(mensaje))
@@ -145,6 +169,8 @@ if (con) {
 
 
     } while (!flag2)
+}else{
+    alert("Recargue la pagina para desbloquear su usuario")
 }
 
 function request_data_cars() {
@@ -295,4 +321,13 @@ function val_id(array, option) {
         }
     }
     return true;
+}
+function val_user_pass(user, pass) {
+    for (let i = 0; i < array_users.length; i++) {
+        if (user == array_users[i].user) {
+            if (pass == array_users[i].password)
+                return true;
+        }
+    }
+    return false;
 }
