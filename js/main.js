@@ -62,6 +62,7 @@ if (con) {
                 }
                 order_items(chose)
                 show_stock()
+                order_by_id()
                 break;
             }
             // agregar vehiculo
@@ -104,6 +105,11 @@ if (con) {
             // eliminar un vehiculo de stock
             case 7: {
                 opcion = parseInt(prompt("ingresa un valor a eliminar \n " + men_cars))
+                let i = val_id(array_cars, opcion)
+                while (i) {
+                    opcion = parseInt(prompt("Valor incorrecto \n ingresa un valor a eliminar \n " + men_cars))
+                    i = val_id(array_cars, opcion)
+                }
                 delete_car(opcion)
                 show_stock()
                 break;
@@ -206,7 +212,7 @@ function sell() {
     }
     car_selected = array_cars.find((e) => e.id == car_to_sell)
     cust_selected = array_custumers.find((e) => e.id == cus_to_buy)
-    check = confirm(`${cust_selected.get_info()} va a comprar el vehiculo\n ${car_selected.get_info()} \n Desea Continuar?`)
+    check = confirm(`${cust_selected.get_info_voucher()} \n Va a comprar el vehiculo\n ${car_selected.get_info_voucher()} \n Desea Continuar?`)
     if (check) {
         delete_car(car_to_sell)
         new_sale = new Sales(cust_selected, car_selected)
@@ -267,6 +273,21 @@ function order_items(e) {
     }
 
 }
+
+function order_by_id() {
+    array_cars.sort(function (a, b) {
+        if (a.id > b.id) {
+            return 1
+        }
+        if (a.id < b.id) {
+            return -1
+        }
+        return 0
+    })
+    men_cars = "Los Vehiculos en stock son: "
+    array_cars.forEach(e => men_cars += `\n ${e.get_info()}`)
+}
+
 function val_id(array, option) {
     for (let i = 0; i < array.length; i++) {
         if (array[i].id == option) {
